@@ -25,19 +25,19 @@ public:
     Triangle(const Vector& AB, const Vector& BC, const Vector& AC);
 
     /// \brief Default destructor
-    ~Triangle();
+    ~Triangle() override = default;
 
     /// \brief Get the AB vector of the triangle
     /// \return the AB vector of the triangle
-    Vector getABVector() const;
+    [[nodiscard]] Vector getABVector() const;
 
     /// \brief Get the BC vector of the triangle
     /// \return the BC vector of the triangle
-    Vector getBCVector() const;
+    [[nodiscard]] Vector getBCVector() const;
 
     /// \brief Get the AC vector of the triangle
     /// \return the AC vector of the triangle
-    Vector getACVector() const;
+    [[nodiscard]] Vector getACVector() const;
 
     /// \brief It prints the coordinates of the points and the name of the Triangle
     ///        using the output stream insertion operator
@@ -45,7 +45,7 @@ public:
 
     /// \brief It returns the name of the Triangle
     /// \return the name of the Triangle
-    std::string getName() const override;
+    [[nodiscard]] std::string getName() const override;
 
     /// Overload of the output stream insertion operator
     /// \param os the ostream object to write data to

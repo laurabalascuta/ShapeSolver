@@ -4,7 +4,7 @@
 
 #include "Math.h"
 
-#include <math.h>
+#include <cmath>
 
 namespace Utils {
 

@@ -25,19 +25,19 @@ public:
     Point(const double &x, const double &y, const double &z, const std::string &name);
 
     /// \brief Default destructor
-    ~Point() = default;
+    ~Point() override = default;
 
     /// Returns the x coordinate of the point
     /// \return the x coordinate
-    double getX() const;
+    [[nodiscard]] double getX() const;
 
     /// Returns the y coordinate of the point
     /// \return the y coordinate
-    double getY() const;
+    [[nodiscard]] double getY() const;
 
     /// Returns the z coordinate of the point
     /// \return the z coordinate
-    double getZ() const;
+    [[nodiscard]] double getZ() const;
 
     /// \brief It prints the coordinates and the name that defines the point
     ///        using the output stream insertion operator
@@ -45,7 +45,7 @@ public:
 
     /// \brief It returns the name of the point
     /// \return the name of the point
-    std::string getName() const override;
+    [[nodiscard]] std::string getName() const override;
 
     /// Overload of the output stream insertion operator
     /// \param os the ostream object to write data to

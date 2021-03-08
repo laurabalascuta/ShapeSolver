@@ -22,7 +22,7 @@ OrangeTriangleSolver::OrangeTriangleSolver() : m_A1B1C1(nullptr),
                                                m_factory(new Entities::TriangleFactory()),
                                                m_solved(false) {
 
-    // read the input triangles' coordiates from the text file
+    // read the input triangles' coordinates from the text file
     std::vector<double> allCoordinates = Utils::IO::readCoordinatesFromFile(COORDINATES_FILENAME);
 
     // check if there are enough coordinates and populate the input vectors
@@ -181,7 +181,7 @@ void OrangeTriangleSolver::ab(double &a, double &b) {
         denominator2;
 }
 
-void OrangeTriangleSolver::cde(const double a, const double b, double &c, double &d, double &e) {
+void OrangeTriangleSolver::cde(const double &a, const double &b, double &c, double &d, double &e) {
     c = pow(a, 2) + 1;
     d = 2 * m_A2B2C2->getABVector().getMiddlePoint().getX() * a
         - 2 * a * b
@@ -193,16 +193,16 @@ void OrangeTriangleSolver::cde(const double a, const double b, double &c, double
         + pow(m_A2B2C2->getABVector().getMiddlePoint().getY(), 2);
 }
 
-void OrangeTriangleSolver::yA3(const double c,
-                               const double d,
-                               const double e,
+void OrangeTriangleSolver::yA3(const double &c,
+                               const double &d,
+                               const double &e,
                                std::optional<double> &yA3_1,
                                std::optional<double> &yA3_2) {
     Utils::Math::quadraticEquation(c, d, e, yA3_1, yA3_2);
 }
 
-void OrangeTriangleSolver::xA3(const std::optional<double> yA3_1, const std::optional<double> yA3_2,
-                               const double a, const double b,
+void OrangeTriangleSolver::xA3(const std::optional<double> &yA3_1, const std::optional<double> &yA3_2,
+                               const double &a, const double &b,
                                std::optional<double> &xA3_1, std::optional<double> &xA3_2) {
     if (yA3_1.has_value()) {
         xA3_1 = -yA3_1.value() * a + b;
@@ -224,7 +224,7 @@ void OrangeTriangleSolver::xB3(const std::optional<double> &xA3_1, const std::op
     }
 }
 
-void OrangeTriangleSolver::yB3(const std::optional<double> yA3_1, const std::optional<double> yA3_2,
+void OrangeTriangleSolver::yB3(const std::optional<double> &yA3_1, const std::optional<double> &yA3_2,
                                std::optional<double> &yB3_1, std::optional<double> &yB3_2) {
     if (yA3_1.has_value()) {
         yB3_1 = 2 * m_A2B2C2->getABVector().getMiddlePoint().getY() - yA3_1.value();
@@ -235,8 +235,8 @@ void OrangeTriangleSolver::yB3(const std::optional<double> yA3_1, const std::opt
     }
 }
 
-void OrangeTriangleSolver::fg(const std::optional<double> xA3_1, const std::optional<double> xB3_1,
-                              const std::optional<double> yA3_1, const std::optional<double> yB3_1,
+void OrangeTriangleSolver::fg(const std::optional<double> &xA3_1, const std::optional<double> &xB3_1,
+                              const std::optional<double> &yA3_1, const std::optional<double> &yB3_1,
                               double &f, double &g) {
     if (xA3_1.has_value() && xB3_1.has_value() && yA3_1.has_value() && yB3_1.has_value()) {
         double denominator1 = -xB3_1.value() + xA3_1.value();
@@ -258,8 +258,8 @@ void OrangeTriangleSolver::fg(const std::optional<double> xA3_1, const std::opti
     }
 }
 
-void OrangeTriangleSolver::hij(const std::optional<double> xA3_1, const std::optional<double> yA3_1,
-                               const double f, const double g,
+void OrangeTriangleSolver::hij(const std::optional<double> &xA3_1, const std::optional<double> &yA3_1,
+                               const double &f, const double &g,
                                double &h, double &i, double &j) {
     if (xA3_1.has_value() && yA3_1.has_value()) {
         h = pow(f, 2) + 1;
@@ -271,16 +271,14 @@ void OrangeTriangleSolver::hij(const std::optional<double> xA3_1, const std::opt
     }
 }
 
-void OrangeTriangleSolver::yC3(const double h,
-                               const double i,
-                               const double j,
+void OrangeTriangleSolver::yC3(const double &h, const double &i, const double &j,
                                std::optional<double> &yC3_1,
                                std::optional<double> &yC3_2) {
     Utils::Math::quadraticEquation(h, i, j, yC3_1, yC3_2);
 }
 
 void OrangeTriangleSolver::xC3(const std::optional<double> &yC3_1, const std::optional<double> &yC3_2,
-                               const double f, const double g,
+                               const double &f, const double &g,
                                std::optional<double> &xC3_1, std::optional<double> &xC3_2) {
     if (yC3_1.has_value()) {
         xC3_1 = yC3_1.value() * f + g;
@@ -315,7 +313,7 @@ void OrangeTriangleSolver::printOutput() const {
         std::cout << "orange triangle/s:" << std::endl;
 
         std::size_t i=0;
-        for (auto triangle: m_outputTriangles) {
+        for (const auto& triangle: m_outputTriangles) {
             std::cout << ++i << ". ";
             triangle->printInfo();
         }

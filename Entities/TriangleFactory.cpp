@@ -6,7 +6,7 @@
 
 namespace Entities {
 
-std::shared_ptr<Entity> TriangleFactory::createEntity(const std::vector<double> &coord, const std::vector<std::string> name) const {
+std::shared_ptr<Entity> TriangleFactory::createEntity(const std::vector<double> &coord, const std::vector<std::string> &name) const {
     std::shared_ptr<Triangle> triangle = nullptr;
 
     // check if there are enough coordinates and names in the input to create a vector

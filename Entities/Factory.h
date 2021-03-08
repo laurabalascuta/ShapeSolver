@@ -22,7 +22,7 @@ public:
     /// \param [in] coord the coordinates of the Entity
     /// \param [in] name the name of the Entity
     /// \return the new Entity
-    virtual std::shared_ptr<Entity> createEntity(const std::vector<double> &coord, const std::vector<std::string> name) const = 0;
+    virtual std::shared_ptr<Entity> createEntity(const std::vector<double> &coord, const std::vector<std::string> &name) const = 0;
 };
 
 }

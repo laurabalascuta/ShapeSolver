@@ -15,9 +15,6 @@ Triangle::Triangle(const Vector& AB, const Vector& BC, const Vector& AC) :
     m_name(AB.getStartPoint().getName() + AB.getEndPoint().getName() + AC.getEndPoint().getName()) {
 }
 
-Triangle::~Triangle() {
-}
-
 void Triangle::printInfo() const {
     std::cout << *this << std::endl;
 }

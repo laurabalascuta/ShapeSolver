@@ -23,15 +23,15 @@ public:
     Vector(const Point &start, const Point &end);
 
     /// \brief Default destructor
-    ~Vector() = default;
+    ~Vector() override = default;
 
     /// \brief Get the start point of the vector
     /// \return the start point of the vector
-    Point getStartPoint() const;
+    [[nodiscard]] Point getStartPoint() const;
 
     /// \brief Get the end point of the vector
     /// \return the end point of the vector
-    Point getEndPoint() const;
+    [[nodiscard]] Point getEndPoint() const;
 
     /// \brief Get the position vector's end point of the current vector
     ///        The position vector is the position of a point P in space
@@ -40,18 +40,18 @@ public:
     ///        from the coordinates of the terminal point.
     ///        Formula: Point(x_end - x_start, y_end - y_start, z_end - z_start)
     /// \return the position vector's end point
-    Point getPositionVectorPoint() const;
+    [[nodiscard]] Point getPositionVectorPoint() const;
 
     /// \brief Get the middle point of the vector
     ///        The middle point has as coordinates the start plus end divided by 2.
     ///        Formula: Point((x_start + x_end)/2, (y_start + y_end)/2, (z_start + z_end)/2)
     /// \return the middle point of the vector
-    Point getMiddlePoint() const;
+    [[nodiscard]] Point getMiddlePoint() const;
 
     /// \brief Get the magnitude of the vector
     ///        Formula: sqrt(pow((x_end - x_start), 2) + pow((y_end - y_start), 2) + pow((z_start - z_end), 2));
     /// \return the magnitude of the vector
-    double getMagnitude() const;
+    [[nodiscard]] double getMagnitude() const;
 
     /// \brief It prints the start and end points coordinates and the name of the Vector
     ///        using the output stream insertion operator
@@ -59,7 +59,7 @@ public:
 
     /// \brief It returns the name of the vector
     /// \return the name of the vector
-    std::string getName() const override;
+    [[nodiscard]] std::string getName() const override;
 
     /// Overload of the output stream insertion operator
     /// \param os the ostream object to write data to

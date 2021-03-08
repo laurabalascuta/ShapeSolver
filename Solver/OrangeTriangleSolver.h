@@ -32,7 +32,7 @@ public:
     OrangeTriangleSolver();
 
     /// \brief Default destructor
-    virtual ~OrangeTriangleSolver() = default;
+    ~OrangeTriangleSolver() override = default;
 
     /// \brief It solves the orange triangle problem
     void solve() override;
@@ -49,7 +49,7 @@ private:
     /// \param [out] c
     /// \param [out] d
     /// \param [out] e
-    void cde(const double a, const double b, double &c, double &d, double &e);
+    void cde(const double &a, const double &b, double &c, double &d, double &e);
 
     /// \brief Calculate yA3
     /// \param [in] c
@@ -57,7 +57,7 @@ private:
     /// \param [in] e
     /// \param [out] yA3_1 the first possible value of yA3
     /// \param [out] yA3_2 the second possible value of yA3
-    void yA3(const double c, const double d, const double e,
+    void yA3(const double &c, const double &d, const double &e,
              std::optional<double> &yA3_1,std::optional<double> &yA3_2);
 
     /// \brief Calculate xA3
@@ -67,8 +67,8 @@ private:
     /// \param [in] b
     /// \param [out] xA3_1 the first possible value of xA3
     /// \param [out] xA3_2 the first possible value of xA3
-    void xA3(const std::optional<double> yA3_1, const std::optional<double> yA3_2,
-             const double a, const double b,
+    void xA3(const std::optional<double> &yA3_1, const std::optional<double> &yA3_2,
+             const double &a, const double &b,
              std::optional<double> &xA3_1, std::optional<double> &xA3_2);
 
     /// \brief Calculate xB3
@@ -84,7 +84,7 @@ private:
     /// \param [in] yA3_2
     /// \param [out] yB3_1 the first possible value of yB3
     /// \param [out] yB3_2 the second possible value of yB3
-    void yB3(const std::optional<double> yA3_1, const std::optional<double> yA3_2,
+    void yB3(const std::optional<double> &yA3_1, const std::optional<double> &yA3_2,
              std::optional<double> &yB3_1, std::optional<double> &yB3_2);
 
     /// \brief Calculate f and g
@@ -94,8 +94,8 @@ private:
     /// \param [in] yB3_1
     /// \param [out] f
     /// \param [out] g
-    void fg(const std::optional<double> xA3_1, const std::optional<double> xB3_1,
-            const std::optional<double> yA3_1, const std::optional<double> yB3_1,
+    void fg(const std::optional<double> &xA3_1, const std::optional<double> &xB3_1,
+            const std::optional<double> &yA3_1, const std::optional<double> &yB3_1,
             double &f, double &g);
 
     /// \brief Calculate h, i and j
@@ -106,8 +106,8 @@ private:
     /// \param [out] h
     /// \param [out] i
     /// \param [out] j
-    void hij(const std::optional<double> xA3_1, const std::optional<double> yA3_1,
-             const double f, const double g,
+    void hij(const std::optional<double> &xA3_1, const std::optional<double> &yA3_1,
+             const double &f, const double &g,
              double &h, double &i, double &j);
 
     /// \brief Calculate yC3
@@ -116,7 +116,7 @@ private:
     /// \param [in] j
     /// \param [out] yC3_1 the first possible value of yC3
     /// \param [out] yC3_2 the second possible value of yC3
-    void yC3(const double h, const double i, const double j,
+    void yC3(const double &h, const double &i, const double &j,
              std::optional<double> &yC3_1, std::optional<double> &yC3_2);
 
     /// \brief Calculate xC3
@@ -127,7 +127,7 @@ private:
     /// \param [out] xC3_1 the first possible value of xC3
     /// \param [out] xC3_2 the second possible value of xC3
     void xC3(const std::optional<double> &yC3_1, const std::optional<double> &yC3_2,
-             const double f, const double g,
+             const double &f, const double &g,
              std::optional<double> &xC3_1, std::optional<double> &xC3_2);
 
     /// \brief Print the input triangles
