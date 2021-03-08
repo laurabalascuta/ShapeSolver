@@ -55,6 +55,12 @@ double Vector::getMagnitude() const {
     return m_magnitude;
 }
 
+double Vector::computeDotProduct(const Vector& vector) const {
+    return (m_positionVector.getX() * vector.getPositionVectorPoint().getX() +
+            m_positionVector.getY() * vector.getPositionVectorPoint().getY() +
+            m_positionVector.getZ() * vector.getPositionVectorPoint().getZ());
+}
+
 std::ostream &operator<<(std::ostream &os, const Vector &vector) {
     os << vector.getName() << "[" << vector.getStartPoint() << ", " << vector.getEndPoint() << "]";
     return os;

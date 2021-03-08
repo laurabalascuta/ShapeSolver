@@ -111,6 +111,7 @@ void OrangeTriangleSolver::solve() {
         std::cout << "Solver: Undefined exception occurred" << std::endl << std::endl;
     }
 
+    // check for at least one output triangle
     if (!xA3_1.has_value() || !yA3_1.has_value()
         || !xB3_1.has_value() || !yB3_1.has_value()
         || !xC3_1.has_value() || !yC3_1.has_value()) {
@@ -124,9 +125,7 @@ void OrangeTriangleSolver::solve() {
                                      xB3_1.value(), yB3_1.value(), m_A2B2C2->getABVector().getEndPoint().getZ(),   //B
                                      xC3_1.value(), yC3_1.value(), m_A2B2C2->getACVector().getEndPoint().getZ()};  //C
 
-        std::shared_ptr<Entities::Triangle>
-        A3B3C3_1 = (std::dynamic_pointer_cast<Entities::Triangle>)(m_factory->createEntity(a3b3c3_1, a3b3c3Name));
-        m_outputTriangles.push_back(A3B3C3_1);
+        addTriangleToOutputList(a3b3c3_1, a3b3c3Name);
 
         if (xC3_2.has_value() && yC3_2.has_value()) {
             std::vector<double>
@@ -134,9 +133,7 @@ void OrangeTriangleSolver::solve() {
                          xB3_1.value(), yB3_1.value(), m_A2B2C2->getABVector().getEndPoint().getZ(),   //B
                          xC3_2.value(), yC3_2.value(), m_A2B2C2->getACVector().getEndPoint().getZ()};  //C
 
-            std::shared_ptr<Entities::Triangle>
-                A3B3C3_2 = (std::dynamic_pointer_cast<Entities::Triangle>)(m_factory->createEntity(a3b3c3_2, a3b3c3Name));
-            m_outputTriangles.push_back(A3B3C3_2);
+            addTriangleToOutputList(a3b3c3_2, a3b3c3Name);
         }
 
         if (xA3_2.has_value() && yA3_2.has_value() && xB3_2.has_value() && yB3_2.has_value()) {
@@ -145,9 +142,7 @@ void OrangeTriangleSolver::solve() {
                          xB3_2.value(), yB3_2.value(), m_A2B2C2->getABVector().getEndPoint().getZ(),   //B
                          xC3_1.value(), yC3_1.value(), m_A2B2C2->getACVector().getEndPoint().getZ()};  //C
 
-            std::shared_ptr<Entities::Triangle>
-                A3B3C3_3 = (std::dynamic_pointer_cast<Entities::Triangle>)(m_factory->createEntity(a3b3c3_3, a3b3c3Name));
-            m_outputTriangles.push_back(A3B3C3_3);
+            addTriangleToOutputList(a3b3c3_3, a3b3c3Name);
 
             if (xC3_2.has_value() && yC3_2.has_value()) {
                 std::vector<double>
@@ -155,9 +150,7 @@ void OrangeTriangleSolver::solve() {
                              xB3_2.value(), yB3_2.value(), m_A2B2C2->getABVector().getEndPoint().getZ(),   //B
                              xC3_2.value(), yC3_2.value(), m_A2B2C2->getACVector().getEndPoint().getZ()};  //C
 
-                std::shared_ptr<Entities::Triangle>
-                    A3B3C3_4 = (std::dynamic_pointer_cast<Entities::Triangle>)(m_factory->createEntity(a3b3c3_4, a3b3c3Name));
-                m_outputTriangles.push_back(A3B3C3_4);
+                addTriangleToOutputList(a3b3c3_4, a3b3c3Name);
             }
         }
     }
@@ -235,39 +228,40 @@ void OrangeTriangleSolver::yB3(const std::optional<double> &yA3_1, const std::op
     }
 }
 
-void OrangeTriangleSolver::fg(const std::optional<double> &xA3_1, const std::optional<double> &xB3_1,
-                              const std::optional<double> &yA3_1, const std::optional<double> &yB3_1,
+void OrangeTriangleSolver::fg(const std::optional<double> &xA3, const std::optional<double> &xB3,
+                              const std::optional<double> &yA3, const std::optional<double> &yB3,
                               double &f, double &g) {
-    if (xA3_1.has_value() && xB3_1.has_value() && yA3_1.has_value() && yB3_1.has_value()) {
-        double denominator1 = -xB3_1.value() + xA3_1.value();
-        double denominator2 = -2 * xB3_1.value() + 2 * xA3_1.value();
+    // there is no need to use both _1 and _2 roots because the value will be the same
+    if (xA3.has_value() && xB3.has_value() && yA3.has_value() && yB3.has_value()) {
+        double denominator1 = -xB3.value() + xA3.value();
+        double denominator2 = -2 * xB3.value() + 2 * xA3.value();
 
         if (denominator1 == 0 || denominator2 == 0) {
             throw std::runtime_error("Attempted to divide by zero\n");
         }
 
-        f = (yB3_1.value() - yA3_1.value()) / denominator1;
+        f = (yB3.value() - yA3.value()) / denominator1;
         g = pow(m_A1B1C1->getBCVector().getMagnitude(), 2)
             - pow(m_A2B2C2->getABVector().getEndPoint().getZ() - m_A2B2C2->getACVector().getEndPoint().getZ(), 2)
-            - pow(xB3_1.value(), 2) - pow(yB3_1.value(), 2)
+            - pow(xB3.value(), 2) - pow(yB3.value(), 2)
             - pow(m_A1B1C1->getACVector().getMagnitude(), 2)
             + pow(m_A2B2C2->getACVector().getEndPoint().getZ() - m_A2B2C2->getACVector().getStartPoint().getZ(), 2)
-            + pow(xA3_1.value(), 2)
-            + pow(yA3_1.value(), 2);
+            + pow(xA3.value(), 2)
+            + pow(yA3.value(), 2);
         g = g / denominator2;
     }
 }
 
-void OrangeTriangleSolver::hij(const std::optional<double> &xA3_1, const std::optional<double> &yA3_1,
+void OrangeTriangleSolver::hij(const std::optional<double> &xA3, const std::optional<double> &yA3,
                                const double &f, const double &g,
                                double &h, double &i, double &j) {
-    if (xA3_1.has_value() && yA3_1.has_value()) {
+    if (xA3.has_value() && yA3.has_value()) {
         h = pow(f, 2) + 1;
-        i = 2 * (f * g - xA3_1.value() * f - yA3_1.value());
-        j = pow(g, 2) - 2 * xA3_1.value() * g
+        i = 2 * (f * g - xA3.value() * f - yA3.value());
+        j = pow(g, 2) - 2 * xA3.value() * g
             - pow(m_A1B1C1->getACVector().getMagnitude(), 2)
             + pow(m_A2B2C2->getACVector().getEndPoint().getZ() - m_A2B2C2->getACVector().getStartPoint().getZ(), 2)
-            + pow(xA3_1.value(), 2) + pow(yA3_1.value(), 2);
+            + pow(xA3.value(), 2) + pow(yA3.value(), 2);
     }
 }
 
@@ -287,6 +281,44 @@ void OrangeTriangleSolver::xC3(const std::optional<double> &yC3_1, const std::op
     if (yC3_2.has_value()) {
         xC3_2 = yC3_2.value() * f + g;
     }
+}
+
+void OrangeTriangleSolver::addTriangleToOutputList(const std::vector<double> &coord, const std::vector<std::string> &name) {
+    std::shared_ptr<Entities::Triangle> outputTriangle = (std::dynamic_pointer_cast<Entities::Triangle>)
+        (m_factory->createEntity(coord, name));
+
+    if (checkAssumptionsSolved(outputTriangle)) {
+        m_outputTriangles.push_back(outputTriangle);
+    }
+}
+
+bool OrangeTriangleSolver::checkAssumptionsSolved(const std::shared_ptr<Entities::Triangle> &triangle) const {
+    return  checkSamePlane(triangle) &&
+            checkMagnitudeEquality(triangle) &&
+        checkPerpendicularVectors(triangle) &&
+            checkMiddle(triangle);
+}
+
+bool OrangeTriangleSolver::checkSamePlane(const std::shared_ptr<Entities::Triangle> &triangle) const {
+    return triangle->getABVector().getStartPoint().getZ() == m_A2B2C2->getABVector().getStartPoint().getZ() &&
+           triangle->getABVector().getEndPoint().getZ() == m_A2B2C2->getABVector().getEndPoint().getZ() &&
+           triangle->getBCVector().getEndPoint().getZ() == m_A2B2C2->getABVector().getEndPoint().getZ();
+}
+
+bool OrangeTriangleSolver::checkMagnitudeEquality(const std::shared_ptr<Entities::Triangle> &triangle) const {
+    return triangle->getABVector().getMagnitude() == m_A1B1C1->getABVector().getMagnitude() &&
+           triangle->getBCVector().getMagnitude() == m_A1B1C1->getBCVector().getMagnitude() &&
+           triangle->getACVector().getMagnitude() == m_A1B1C1->getACVector().getMagnitude();
+}
+
+bool OrangeTriangleSolver::checkPerpendicularVectors(const std::shared_ptr<Entities::Triangle> &triangle) const {
+    return triangle->getABVector().computeDotProduct(m_A1B1C1->getABVector()) == 0;
+}
+
+bool OrangeTriangleSolver::checkMiddle(const std::shared_ptr<Entities::Triangle> &triangle) const {
+    return triangle->getABVector().getMiddlePoint().getX() == m_A2B2C2->getABVector().getMiddlePoint().getX() &&
+           triangle->getABVector().getMiddlePoint().getY() == m_A2B2C2->getABVector().getMiddlePoint().getY() &&
+           triangle->getABVector().getMiddlePoint().getZ() == m_A2B2C2->getABVector().getMiddlePoint().getZ();
 }
 
 void OrangeTriangleSolver::printInput() const {

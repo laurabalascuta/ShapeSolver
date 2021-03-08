@@ -53,6 +53,11 @@ public:
     /// \return the magnitude of the vector
     [[nodiscard]] double getMagnitude() const;
 
+    /// \brief Compute the dot product of this vector and an input vector
+    /// \param [in] vector the input vector
+    /// \return the value of the dot product
+    [[nodiscard]] double computeDotProduct(const Vector& vector) const;
+
     /// \brief It prints the start and end points coordinates and the name of the Vector
     ///        using the output stream insertion operator
     void printInfo() const override;
