@@ -41,7 +41,7 @@ private:
     /// \brief Calculate a and b
     /// \param [out] a formula parameter named a
     /// \param [out] b formula parameter named b
-    void ab(double &a, double &b);
+    void compute_ab(double &a, double &b);
 
     /// \brief Calculate c, d, e
     /// \param [in] a formula parameter named a
@@ -49,86 +49,110 @@ private:
     /// \param [out] c formula parameter named c
     /// \param [out] d formula parameter named d
     /// \param [out] e formula parameter named e
-    void cde(const double &a, const double &b, double &c, double &d, double &e);
+    void compute_cde(const double &a, const double &b, double &c, double &d, double &e);
+
+    /// \brief Calculate m, n
+    /// \param [in] yA3 the value of the coordinate yA3
+    /// \param [out] m formula parameter named m
+    /// \param [out] n formula parameter named n
+    void compute_mn(const double &yA3, double &m, double &n);
+
+    /// \brief Calculate yA3
+    /// \param [out] yA3 the value of coordinate y of point A3
+    void compute_yA3(double &yA3);
 
     /// \brief Calculate yA3
     /// \param [in] c formula parameter named c
     /// \param [in] d formula parameter named d
     /// \param [in] e formula parameter named e
-    /// \param [out] yA3_1 the first possible value of coordinate y of point A3
-    /// \param [out] yA3_2 the second possible value of coordinate y of point A3
-    void yA3(const double &c, const double &d, const double &e,
-             std::optional<double> &yA3_1,std::optional<double> &yA3_2);
+    /// \param [out] yA3 the values of coordinate y of point A3
+    void compute_quadratic_yA3(const double &c, const double &d, const double &e,
+                               std::vector<double> &yA3);
 
     /// \brief Calculate xA3
-    /// \param [in] yA3_1 the first possible value of coordinate y of point A3
-    /// \param [in] yA3_2 the second possible value of coordinate y of point A3
+    /// \param [in] yA3 the value of coordinate y of point A3
     /// \param [in] a formula parameter named a
     /// \param [in] b formula parameter named b
-    /// \param [out] xA3_1 the first possible value of coordinate x of point A3
-    /// \param [out] xA3_2 the second possible value of coordinate x of point A3
-    void xA3(const std::optional<double> &yA3_1, const std::optional<double> &yA3_2,
-             const double &a, const double &b,
-             std::optional<double> &xA3_1, std::optional<double> &xA3_2);
+    /// \param [out] xA3 the value of coordinate x of point A3
+    void compute_xA3(const double &yA3, const double &a, const double &b, double &xA3);
+
+    /// \brief Calculate xA3
+    /// \param [in] m formula parameter named m
+    /// \param [in] n formula parameter named n
+    /// \param [out] xA3 the values of coordinate x of point A3
+    void compute_quadratic_xA3(const double &m, const double &n, std::vector<double> &xA3);
 
     /// \brief Calculate xB3
-    /// \param [in] xA3_1 the first possible value of coordinate x of point A3
-    /// \param [in] xA3_2 the second possible value of coordinate x of point A3
-    /// \param [out] xB3_1 the first possible value of coordinate x of point B3
-    /// \param [out] xB3_2 the second possible value of coordinate x of point B3
-    void xB3(const std::optional<double> &xA3_1, const std::optional<double> &xA3_2,
-             std::optional<double> &xB3_1, std::optional<double> &xB3_2);
+    /// \param [in] xA3 the first value of coordinate x of point A3
+    /// \param [out] xB3 the value of coordinate x of point B3
+    void compute_xB3(const double &xA3, double &xB3);
 
     /// \brief Calculate yB3
-    /// \param [in] yA3_1 the first possible value of coordinate y of point A3
-    /// \param [in] yA3_2 the first possible value of coordinate y of point A3
-    /// \param [out] yB3_1 the first possible value of coordinate y of point B3
-    /// \param [out] yB3_2 the second possible value of coordinate y of point B3
-    void yB3(const std::optional<double> &yA3_1, const std::optional<double> &yA3_2,
-             std::optional<double> &yB3_1, std::optional<double> &yB3_2);
+    /// \param [in] yA3 the value of coordinate y of point A3
+    /// \param [out] yB3 the value of coordinate y of point B3
+    void compute_yB3(const double &yA3, double &yB3);
 
     /// \brief Calculate f and g
+    /// \param [in] xA3 the value of coordinate x of point A3
+    /// \param [in] yA3 the value of coordinate y of point A3
+    /// \param [in] yC3 the value of coordinate y of point C3
+    /// \param [out] f formula parameter named f
+    /// \param [out] g formula parameter named g
+    void compute_fg(const double &xA3, const double &yA3, const double &yC3,
+                    double &f, double &g);
+
+    /// \brief Calculate h and i
     /// \param [in] xA3 the value of coordinate x of point A3
     /// \param [in] xB3 the value of coordinate x of point B3
     /// \param [in] yA3 the value of coordinate y of point A3
     /// \param [in] yB3 value of coordinate y of point B3
-    /// \param [out] f formula parameter named f
-    /// \param [out] g formula parameter named g
-    void fg(const std::optional<double> &xA3, const std::optional<double> &xB3,
-            const std::optional<double> &yA3, const std::optional<double> &yB3,
-            double &f, double &g);
-
-    /// \brief Calculate h, i and j
-    /// \param [in] xA3 the value of coordinate x of point A3
-    /// \param [in] yA3 the value of coordinate y of point A3
-    /// \param [in] f formula parameter named f
-    /// \param [in] g formula parameter named g
     /// \param [out] h formula parameter named h
     /// \param [out] i formula parameter named i
+    void compute_hi(const double &xA3, const double &xB3, const double &yA3, const double &yB3,
+                    double &h, double &i);
+
+    /// \brief Calculate j, k and l
+    /// \param [in] xA3 the value of coordinate x of point A3
+    /// \param [in] yA3 the value of coordinate y of point A3
+    /// \param [in] h formula parameter named h
+    /// \param [in] i formula parameter named i
     /// \param [out] j formula parameter named j
-    void hij(const std::optional<double> &xA3, const std::optional<double> &yA3,
-             const double &f, const double &g,
-             double &h, double &i, double &j);
+    /// \param [out] k formula parameter named k
+    /// \param [out] l formula parameter named l
+    void compute_jkl(const double &xA3, const double &yA3, const double &h, const double &i,
+                     double &j, double &k, double &l);
+
+
+    /// \brief Calculate yC3
+    /// \param [in] xA3 the value of coordinate x of point A3
+    /// \param [in] xB3 the value of coordinate x of point B3
+    /// \param [in] yA3 the value of coordinate y of point A3
+    /// \param [in] yB3 the value of coordinate y of point B3
+    /// \param [out] yC3 the value of coordinate y of point C3
+    void compute_yC3(const double &xA3, const double &xB3, const double &yA3, const double &yB3, double &yC3);
 
     /// \brief Calculate yC3
     /// \param [in] h formula parameter named h
     /// \param [in] i formula parameter named i
     /// \param [in] j formula parameter named j
-    /// \param [out] yC3_1 the first possible value of coordinate y of point C3
-    /// \param [out] yC3_2 the second possible value of coordinate y of point C3
-    void yC3(const double &h, const double &i, const double &j,
-             std::optional<double> &yC3_1, std::optional<double> &yC3_2);
+    /// \param [out] yC3 the values of coordinate y of point C3
+    void compute_quadratic_yC3(const double &h, const double &i, const double &j,
+                               std::vector<double> &yC3);
 
     /// \brief Calculate xC3
-    /// \param [in] yC3_1 the first possible value of coordinate y of point C3
-    /// \param [in] yC3_2 the second possible value of coordinate y of point C3
+    /// \param [in] yC3 the value of coordinate y of point C3
     /// \param [in] f formula parameter named f
     /// \param [in] g formula parameter named g
-    /// \param [out] xC3_1 the first possible value of coordinate x of point C3
-    /// \param [out] xC3_2 the second possible value of coordinate x of point C3
-    void xC3(const std::optional<double> &yC3_1, const std::optional<double> &yC3_2,
-             const double &f, const double &g,
-             std::optional<double> &xC3_1, std::optional<double> &xC3_2);
+    /// \param [out] xC3 the value of coordinate x of point C3
+    void compute_xC3(const double &yC3, const double &f, const double &g, double &xC3);
+
+    /// \brief Calculate xC3
+    /// \param [in] r formula parameter named r
+    /// \param [in] f formula parameter named f
+    /// \param [in] g formula parameter named g
+    /// \param [out] xC3 the value of coordinate x of point C3
+    void compute_quadratic_xC3(const double &r, const double &f, const double &g,
+                               std::vector<double> &xC3);
 
     /// \brief Call the assumptions check assumptions, the creation of the triangle and add it to the list
     /// \param [in] coord the coordinates of the triangle
@@ -171,7 +195,7 @@ private:
     std::vector<std::shared_ptr<Entities::Triangle>> m_outputTriangles;
     std::unique_ptr<Entities::Factory> m_factory;
 
-    bool m_solved = false;
+    bool m_solved;
 };
 
 }

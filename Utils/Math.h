@@ -5,7 +5,7 @@
 #ifndef SHAPESOLVER_MATH_H
 #define SHAPESOLVER_MATH_H
 
-#include <optional>
+#include <vector>
 
 namespace Utils {
 
@@ -16,10 +16,8 @@ public:
     /// \param [in] a the quadratic coefficient
     /// \param [in] b the linear coefficient
     /// \param [in] c the constant
-    /// \param [out] x1 the first solution of the equation
-    /// \param [out] x2 the second solution of the equation
-    static void quadraticEquation(const double &a, const double &b, const double &c,
-                                  std::optional<double> &x1, std::optional<double> &x2);
+    /// \param [out] x the roots
+    static void quadraticEquation(const double &a, const double &b, const double &c, std::vector<double> &x);
 };
 
 }

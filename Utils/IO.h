@@ -5,6 +5,7 @@
 #ifndef SHAPESOLVER_IO_H
 #define SHAPESOLVER_IO_H
 
+#include <string>
 #include <vector>
 
 namespace Utils {
