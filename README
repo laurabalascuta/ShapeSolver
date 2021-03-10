@@ -5,8 +5,7 @@ BUILDING
 
 Download the source code from https://github.com/laurabalascuta/ShapeSolver.
 
-Open x86 Native Tools Command Prompt for VS 20019 (C:\Program Files (x86)\Microsoft Visual Studio\2019\Community)
-
+Open x86 Native Tools Command Prompt for VS 2019
 Switch the path to the dowloaded and unzipped folder (cd path/ShapeSolver)
 
 Run nmake command (to build it)
