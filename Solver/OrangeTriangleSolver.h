@@ -10,7 +10,6 @@
 #include "../Entities/Factory.h"
 #include "../Entities/Triangle.h"
 
-#include <optional>
 #include <vector>
 
 namespace Solver {
