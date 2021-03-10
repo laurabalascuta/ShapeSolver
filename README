@@ -1,0 +1,29 @@
+This is the code project for solving the orange triangle problem.
+
+
+BUILDING
+
+Download the source code from https://github.com/laurabalascuta/ShapeSolver.
+
+Open x86 Native Tools Command Prompt for VS 20019 (C:\Program Files (x86)\Microsoft Visual Studio\2019\Community)
+
+Switch the path to the dowloaded and unzipped folder (cd path/ShapeSolver)
+
+Run nmake command (to build it)
+
+
+RUNNING
+
+If needed, edit input.txt (the coordinates input triangles file). Each line contains the coordinates for a point of the triangle.
+
+Example:
+xA1 yA1 zA1
+xB1 yB1 zB1
+xC1 yC1 zC1
+xA2 yA2 zA2
+xB2 yB2 zB2
+xC2 yC2 zC2
+
+The file samples.txt contains some input and output data to be used as reference.
+
+Run ShapeSolver.exe. 

@@ -121,27 +121,23 @@ void OrangeTriangleSolver::solve() {
             }
         } else {
 
-            // calculate a and b
             compute_ab(a, b);
 
-            // calculate c, d, e
             compute_cde(a, b, c, d, e);
 
-            // there will be 2 variants for point A
-            // calculate yA3_1 and yA3_2 -> max 2 values of y for A
             std::vector<double> yA3_roots;
             compute_quadratic_yA3(c, d, e, yA3_roots);
 
             for (auto yA3: yA3_roots) {
-                double xA3, xB3, yB3;
-
+                double xA3;
                 compute_xA3(yA3, a, b, xA3);
+
+                double xB3, yB3;
                 compute_xB3(xA3, xB3);
                 compute_yB3(yA3, yB3);
 
                 if (xA3 != xB3) {
                     compute_hi(xA3, xB3, yA3, yB3, h, i);
-                    // calculate j, k and l
                     compute_jkl(xA3, yA3, h, i, j, k, l);
 
                     std::vector<double> yC3_roots;
